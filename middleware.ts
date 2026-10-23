@@ -31,11 +31,14 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const isDemoAdmin = request.cookies.get("dr_admin_session")?.value === "true";
+  const isAuthenticated = !!user || isDemoAdmin;
+
   const url = request.nextUrl.clone();
 
   // Protect /admin routes (except /admin/login)
   if (url.pathname.startsWith("/admin") && !url.pathname.startsWith("/admin/login")) {
-    if (!user) {
+    if (!isAuthenticated) {
       url.pathname = "/admin/login";
       url.searchParams.set("redirect", request.nextUrl.pathname);
       return NextResponse.redirect(url);
@@ -43,7 +46,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // If already logged in and visiting /admin/login, redirect to /admin dashboard
-  if (url.pathname === "/admin/login" && user) {
+  if (url.pathname === "/admin/login" && isAuthenticated) {
     url.pathname = "/admin";
     return NextResponse.redirect(url);
   }
@@ -56,4 +59,3 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|images|icons|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
-

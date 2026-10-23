@@ -35,6 +35,7 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     try {
+      document.cookie = "dr_admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
       const supabase = createClient();
       await supabase.auth.signOut();
       router.push("/admin/login");
@@ -150,4 +151,3 @@ export default function AdminLayout({
     </div>
   );
 }
-
