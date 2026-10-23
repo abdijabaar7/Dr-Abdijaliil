@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { Stethoscope, Lock, Mail, AlertCircle, Loader2, ArrowLeft, Key } from "lucide-react";
+import { Stethoscope, Lock, Mail, AlertCircle, Loader2, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export default function AdminLoginPage() {
-  const [email, setEmail] = useState("doctor@example.com");
-  const [password, setPassword] = useState("Doctor2026!");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const router = useRouter();
@@ -53,11 +54,6 @@ export default function AdminLoginPage() {
       setErrorMsg(msg);
       setLoading(false);
     }
-  };
-
-  const autofillDemo = () => {
-    setEmail("doctor@example.com");
-    setPassword("Doctor2026!");
   };
 
   return (
@@ -107,7 +103,7 @@ export default function AdminLoginPage() {
                   placeholder="doctor@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
                 />
               </div>
             </div>
@@ -119,13 +115,21 @@ export default function AdminLoginPage() {
               <div className="relative">
                 <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-11 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4 text-slate-400" />}
+                </button>
               </div>
             </div>
 
@@ -145,14 +149,8 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Direct Credentials Card for ease of use */}
-          <div className="mt-6 p-4 bg-teal-50/80 rounded-2xl border border-teal-100 space-y-1.5 text-xs text-slate-700">
-            <div className="font-bold text-teal-800 flex items-center gap-1.5">
-              <Key className="w-3.5 h-3.5" />
-              Doctor Access Credentials:
-            </div>
-            <div><strong>Email:</strong> <code className="bg-white px-1.5 py-0.5 rounded border border-teal-200">doctor@example.com</code></div>
-            <div><strong>Password:</strong> <code className="bg-white px-1.5 py-0.5 rounded border border-teal-200">Doctor2026!</code></div>
+          <div className="mt-6 pt-6 border-t border-slate-100 text-center text-xs text-slate-400">
+            Protected with End-to-End Encryption &amp; Row-Level Security
           </div>
         </div>
       </div>
