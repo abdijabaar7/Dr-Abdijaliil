@@ -1,152 +1,170 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { Stethoscope, MapPin, Phone, Mail, Clock, MessageSquare, ShieldCheck, Heart } from "lucide-react";
+import { Plus, ArrowRight, MessageCircle, Check } from "lucide-react";
 
 export function Footer() {
+  const [subscribed, setSubscribed] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      setSubscribed(true);
+      setEmail("");
+    }
+  };
+
   return (
-    <footer className="bg-navy-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+    <footer className="bg-[#0b2128] text-slate-300 pt-16 pb-12 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
-          {/* Brand Col */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-teal-500 flex items-center justify-center text-white shadow-lg shadow-teal-500/20">
-                <Stethoscope className="w-5 h-5" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
+          {/* Brand Col matching reference */}
+          <div className="lg:col-span-4 space-y-4">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-teal-500 flex items-center justify-center text-white shadow-md">
+                <Plus className="w-5 h-5 stroke-[3]" />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-lg text-white tracking-tight">
-                  {siteConfig.name}
+                <span className="font-extrabold text-lg text-white tracking-tight leading-tight">
+                  Dr. Abdijalii
                 </span>
-                <span className="text-xs font-medium text-teal-400">
-                  {siteConfig.doctor.specialty}
+                <span className="text-[10px] font-semibold text-teal-400 tracking-wider">
+                  orthopedic.care
                 </span>
               </div>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Providing modern, compassionate orthopedic surgery and evidence-based bone care in
-              Mogadishu, Somalia. From complex fracture management to joint restoration and sports
-              rehabilitation.
+
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
+              Better care, healthier lives. Specialized orthopedic surgery and bone trauma care in
+              Mogadishu, Somalia.
             </p>
-            <div className="pt-2 flex items-center gap-3">
+
+            <div className="pt-2">
               <a
                 href={`https://wa.me/${siteConfig.doctor.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 px-3.5 py-1.5 rounded-full text-xs font-medium hover:bg-emerald-600/30 transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
               >
-                <MessageSquare className="w-3.5 h-3.5" />
-                Direct WhatsApp Desk
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp Direct: +{siteConfig.doctor.whatsapp}
               </a>
-              <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
-                <ShieldCheck className="w-4 h-4 text-teal-400" />
-                Verified Specialist
-              </span>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-white tracking-wider uppercase">
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-white tracking-wider uppercase">
               Quick Links
             </h4>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-xs text-slate-400">
               <li>
-                <Link href="/" className="hover:text-teal-400 transition-colors">
+                <Link href="/" className="hover:text-white transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-teal-400 transition-colors">
-                  About Dr. Abdijalii
+                <Link href="/about" className="hover:text-white transition-colors">
+                  Doctors
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-teal-400 transition-colors">
-                  Orthopedic Services
+                <Link href="/services" className="hover:text-white transition-colors">
+                  Services
                 </Link>
               </li>
               <li>
-                <Link href="/conditions" className="hover:text-teal-400 transition-colors">
-                  Conditions & Treatments
+                <Link href="/conditions" className="hover:text-white transition-colors">
+                  Conditions
                 </Link>
               </li>
               <li>
-                <Link href="/appointments" className="hover:text-teal-400 transition-colors">
-                  Book Appointment
-                </Link>
-              </li>
-              <li>
-                <Link href="/consultation" className="hover:text-teal-400 transition-colors">
-                  Online Consultation
+                <Link href="/blog" className="hover:text-white transition-colors">
+                  Blog
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Clinical Focus */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-white tracking-wider uppercase">
-              Specialties
+          {/* Support / Legal */}
+          <div className="lg:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold text-white tracking-wider uppercase">
+              Support
             </h4>
-            <ul className="space-y-2 text-sm">
-              <li className="text-slate-400">Fractures & Bone Trauma</li>
-              <li className="text-slate-400">Knee & Joint Preservation</li>
-              <li className="text-slate-400">Shoulder & Hip Care</li>
-              <li className="text-slate-400">Sports Injury Rehabilitation</li>
-              <li className="text-slate-400">Pediatric Orthopedic Assessments</li>
-              <li className="text-slate-400">Spine Strain & Posture Evaluation</li>
+            <ul className="space-y-2 text-xs text-slate-400">
+              <li>
+                <Link href="/faq" className="hover:text-white transition-colors">
+                  FAQs
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin/login" className="text-teal-400 hover:text-teal-300 transition-colors">
+                  Doctor Portal
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Clinic Contact */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-white tracking-wider uppercase">
-              Clinic Contact
+          {/* Subscribe to Newsletter matching reference screenshot */}
+          <div className="lg:col-span-4 space-y-3">
+            <h4 className="text-xs font-bold text-white tracking-wider uppercase">
+              Subscribe to Our Newsletter
             </h4>
-            <ul className="space-y-2.5 text-sm text-slate-400">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-teal-400 mt-0.5 shrink-0" />
-                <span>{siteConfig.doctor.location}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-teal-400 shrink-0" />
-                <span>{siteConfig.doctor.hours}</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-teal-400 shrink-0" />
-                <a href={`tel:${siteConfig.doctor.phone}`} className="hover:text-white transition-colors">
-                  {siteConfig.doctor.phone}
-                </a>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-teal-400 shrink-0" />
-                <a href={`mailto:${siteConfig.doctor.email}`} className="hover:text-white transition-colors">
-                  {siteConfig.doctor.email}
-                </a>
-              </li>
-            </ul>
+            <p className="text-xs text-slate-400">
+              Get health tips, orthopedic advice, and clinic news.
+            </p>
+
+            {subscribed ? (
+              <div className="flex items-center gap-2 p-3 bg-[#16313a] rounded-xl text-xs text-emerald-400 font-semibold border border-emerald-500/30">
+                <Check className="w-4 h-4 text-emerald-400" />
+                Thank you for subscribing!
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex items-center gap-2 pt-2">
+                <input
+                  type="email"
+                  required
+                  placeholder="Your email address..."
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-[#16313a] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-400"
+                />
+                <button
+                  type="submit"
+                  className="bg-teal-500 hover:bg-teal-600 text-white p-2.5 rounded-xl transition-colors shrink-0"
+                  aria-label="Subscribe"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </form>
+            )}
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-          <p className="flex items-center gap-1">
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-6">
-            <Link href="/privacy" className="hover:text-slate-400 transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/faq" className="hover:text-slate-400 transition-colors">
-              Patient FAQs
-            </Link>
-            <Link href="/admin/login" className="text-slate-400 hover:text-teal-400 transition-colors">
-              Doctor Admin Portal
-            </Link>
-          </div>
+        {/* Bottom row matching reference */}
+        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center text-[11px] text-slate-500 gap-4">
+          <p>© {new Date().getFullYear()} Dr. Abdijalii. All rights reserved.</p>
+          <p className="text-slate-400 font-medium">Trusted Healthcare for a Brighter Future.</p>
         </div>
       </div>
     </footer>
   );
 }
-
