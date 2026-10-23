@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Check } from "lucide-react";
+import { siteConfig } from "@/config/site";
 
 export function QualityFeature() {
   return (
@@ -10,13 +11,13 @@ export function QualityFeature() {
           {/* Left Text */}
           <div className="lg:col-span-7 space-y-5">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Quality Healthcare <br />
+              Quality Orthopedic Care <br />
               for a Healthier Tomorrow
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-lg">
-              At Dr. Abdijalii&apos;s practice, we believe everyone deserves access to great healthcare.
-              Our mission is to connect you with the best orthopedic diagnostic and surgical services,
-              whenever you need them.
+              At {siteConfig.doctor.name}&apos;s orthopedic practice in Mogadishu, we believe everyone
+              deserves access to great bone and joint healthcare. Our focus is accurate diagnostic X-ray
+              evaluation, non-surgical therapies first, and precision fracture fixation when surgery is required.
             </p>
 
             <div className="pt-2">
@@ -24,12 +25,12 @@ export function QualityFeature() {
                 href="/about"
                 className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-bold px-7 py-3 rounded-full text-sm shadow-md shadow-teal-600/20 transition-all"
               >
-                Learn More
+                Learn More About Dr. Abdijalii
               </Link>
             </div>
           </div>
 
-          {/* Right Doctor Image with 98% Patient Satisfaction Floating Badge */}
+          {/* Right Image with 98% Patient Satisfaction Floating Badge */}
           <div className="lg:col-span-5 relative flex justify-center">
             <div className="relative w-full max-w-sm h-72 sm:h-80 rounded-2xl overflow-hidden shadow-md bg-slate-100">
               <Image

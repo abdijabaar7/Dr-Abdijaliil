@@ -3,19 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, Stethoscope, Heart, Activity, User, ShieldCheck, Bone } from "lucide-react";
+import { Search, Bone, Activity, ShieldCheck, Zap, UserCheck, Heart } from "lucide-react";
 
 export function QuickSpecialtyBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
   const specialtyIcons = [
-    { label: "General Care", icon: Stethoscope, href: "/conditions#assessment" },
-    { label: "Bone Trauma", icon: Bone, href: "/conditions#fractures" },
-    { label: "Joint Health", icon: Activity, href: "/conditions#knee-joint" },
-    { label: "Pediatrics", icon: User, href: "/conditions#pediatric" },
+    { label: "Bone Fractures", icon: Bone, href: "/conditions#fractures" },
+    { label: "Knee & Joint", icon: Activity, href: "/conditions#knee-joint" },
+    { label: "Shoulder & Hip", icon: ShieldCheck, href: "/conditions#shoulder-hip" },
+    { label: "Sports Injuries", icon: Zap, href: "/conditions#sports" },
+    { label: "Pediatric Ortho", icon: UserCheck, href: "/conditions#pediatric" },
     { label: "Spine Care", icon: Heart, href: "/conditions#assessment" },
-    { label: "Orthopedic", icon: ShieldCheck, href: "/services" },
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -34,20 +34,20 @@ export function QuickSpecialtyBar() {
           {/* Left Title & Description */}
           <div className="lg:col-span-7 space-y-2">
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Find the Right Treatment <br className="hidden sm:inline" />
-              for Your Needs
+              Find Orthopedic Care <br className="hidden sm:inline" />
+              for Your Condition
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm max-w-lg">
-              Search by condition, joint problem, or choose from Dr. Abdijalii&apos;s orthopedic specialties and get connected in minutes.
+              Search by bone injury, joint condition, or select from Dr. Abdijalii&apos;s orthopedic specialties in Mogadishu.
             </p>
 
-            {/* Search Input Box matching the reference */}
+            {/* Search Input Box */}
             <form onSubmit={handleSearch} className="pt-4 flex items-center gap-2 max-w-xl">
               <div className="relative flex-grow">
                 <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="Search by specialty, condition, or procedure..."
+                  placeholder="Search bone fracture, knee pain, shoulder, casting..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-[#163a48] border border-slate-600/80 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-teal-400 transition-colors"
@@ -62,7 +62,7 @@ export function QuickSpecialtyBar() {
             </form>
           </div>
 
-          {/* Right 2x3 Grid of Specialty Icon Badges matching the reference */}
+          {/* Right 2x3 Grid of Specialty Icon Badges */}
           <div className="lg:col-span-5 grid grid-cols-3 gap-3">
             {specialtyIcons.map((item) => {
               const Icon = item.icon;

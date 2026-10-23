@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/config/site";
-import { Star, Heart, Users, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Star, Heart, Users, Calendar, MessageSquare } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -12,7 +12,7 @@ export function HeroSection() {
           <div className="lg:col-span-7 space-y-7">
             {/* Top muted subtitle */}
             <div className="text-xs sm:text-sm font-medium text-slate-400 tracking-wide">
-              Trusted Healthcare, Anytime, Anywhere
+              Trusted Orthopedic Care • Mogadishu, Somalia
             </div>
 
             {/* Main Headline */}
@@ -23,8 +23,9 @@ export function HeroSection() {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-500 max-w-xl leading-relaxed">
-              Connect with certified orthopedic doctor, get expert medical advice, and book
-              appointments — all online. Fast, secure and hassle-free.
+              Connect with <span className="font-semibold text-slate-800">{siteConfig.doctor.name}</span>,
+              specialized Orthopedic &amp; Trauma Surgeon in Mogadishu. Expert medical advice, bone fracture care,
+              and joint restoration — fast, secure, and hassle-free.
             </p>
 
             {/* Action Buttons (Solid Teal & Ghost White Pill Buttons) */}
@@ -52,7 +53,7 @@ export function HeroSection() {
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">10K+</div>
+                  <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">1,000+</div>
                   <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Patients Treated</div>
                 </div>
               </div>
@@ -63,7 +64,7 @@ export function HeroSection() {
                 </div>
                 <div>
                   <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">4+ Yrs</div>
-                  <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Orthopedic Care</div>
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Orthopedic Exp.</div>
                 </div>
               </div>
 
@@ -100,26 +101,26 @@ export function HeroSection() {
                 />
               </div>
 
-              {/* Floating Doctor Profile Card on lower right as in reference */}
-              <div className="absolute bottom-2 -left-2 sm:bottom-6 sm:-left-6 bg-white p-3 sm:p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 max-w-[240px]">
+              {/* Floating Doctor Profile Card on lower left matching reference */}
+              <div className="absolute bottom-2 -left-2 sm:bottom-6 sm:-left-6 bg-white p-3.5 sm:p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 max-w-[250px]">
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-teal-100 shrink-0 relative">
                   <Image
                     src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=120&auto=format&fit=crop"
-                    alt="Doctor"
+                    alt={siteConfig.doctor.name}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="space-y-0.5">
                   <div className="font-bold text-xs sm:text-sm text-slate-900 leading-tight">
-                    Dr. Abdijalii
+                    {siteConfig.doctor.name}
                   </div>
                   <div className="text-[11px] text-teal-600 font-semibold">
-                    Orthopedic Surgeon
+                    {siteConfig.doctor.specialty}
                   </div>
                   <div className="flex items-center gap-1 text-[10px] text-emerald-600 font-bold pt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Available in Clinic
+                    Available in Mogadishu
                   </div>
                 </div>
               </div>
