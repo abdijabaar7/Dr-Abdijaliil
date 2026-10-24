@@ -17,6 +17,7 @@ import {
   Menu,
   X,
   Stethoscope,
+  MessageSquare,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -48,6 +49,7 @@ export default function AdminLayout({
   const navItems = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },
     { name: "Appointments", href: "/admin/appointments", icon: Calendar },
+    { name: "Inquiries & Messages", href: "/admin/messages", icon: MessageSquare },
     { name: "Services", href: "/admin/services", icon: Activity },
     { name: "Health Blog", href: "/admin/blog", icon: BookOpen },
     { name: "Gallery", href: "/admin/gallery", icon: ImageIcon },

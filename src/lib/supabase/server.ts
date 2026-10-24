@@ -1,11 +1,16 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+function cleanUrl(url: string) {
+  return url.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, "");
+}
+
 export async function createServerSupabaseClient() {
   const cookieStore = await cookies();
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder-project.supabase.co";
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key";
+  const rawUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://oxxckjlehayncjmjndxm.supabase.co";
+  const supabaseUrl = cleanUrl(rawUrl);
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
   return createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
@@ -24,4 +29,3 @@ export async function createServerSupabaseClient() {
     },
   });
 }
-

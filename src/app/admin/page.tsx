@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { siteConfig } from "@/config/site";
 import {
   Calendar,
@@ -19,7 +19,7 @@ export const metadata = {
 };
 
 export default async function AdminOverviewPage() {
-  const supabase = await createServerSupabaseClient();
+  const supabase = createAdminClient();
 
   // Fetch metrics with graceful fallback
   let totalAppointments = 0;

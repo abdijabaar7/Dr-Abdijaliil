@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contactSchema } from "@/lib/validations/contact.schema";
 import { checkRateLimit } from "@/lib/security/rate-limit";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export async function POST(req: NextRequest) {
   try {
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || "127.0.0.1";
-    const { success: rateLimitPassed } = checkRateLimit(`contact_${ip}`, 5, 60 * 1000);
+    const { success: rateLimitPassed } = checkRateLimit(`contact_${ip}`, 10, 60 * 1000);
     if (!rateLimitPassed) {
       return NextResponse.json(
         { error: "Too many messages. Please wait a minute before submitting again." },
@@ -33,26 +34,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, message: "Message sent." });
     }
 
-    const supabase = await createServerSupabaseClient();
-    const { error } = await supabase.from("contact_messages").insert({
-      name,
-      phone,
-      email: email || null,
-      subject: subject || null,
-      message,
-      is_read: false,
-    });
-
-    if (error) {
-      console.error("Database insert error on contact message:", error);
-      // Fallback response for dev/unconfigured Supabase environment
-      return NextResponse.json(
-        {
-          success: true,
-          message: "Thank you for reaching out. We will contact you soon.",
-        },
-        { status: 200 }
-      );
+    try {
+      const supabaseAdmin = createAdminClient();
+      await supabaseAdmin.from("contact_messages").insert({
+        name,
+        phone,
+        email: email || null,
+        subject: subject || null,
+        message,
+        is_read: false,
+      });
+    } catch {
+      const supabase = await createServerSupabaseClient();
+      await supabase.from("contact_messages").insert({
+        name,
+        phone,
+        email: email || null,
+        subject: subject || null,
+        message,
+        is_read: false,
+      });
     }
 
     return NextResponse.json(
@@ -67,4 +68,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
