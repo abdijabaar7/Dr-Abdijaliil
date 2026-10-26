@@ -93,7 +93,7 @@ export function HeroSection() {
               {/* Doctor portrait */}
               <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] rounded-full overflow-hidden border-4 border-white shadow-2xl bg-slate-100">
                 <Image
-                  src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop"
+                  src="/images/doctor/dr-abdijaliil.jpg"
                   alt={siteConfig.doctor.name}
                   fill
                   priority
@@ -105,10 +105,10 @@ export function HeroSection() {
               <div className="absolute bottom-2 -left-2 sm:bottom-6 sm:-left-6 bg-white p-3.5 sm:p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 max-w-[250px]">
                 <div className="w-10 h-10 rounded-full overflow-hidden bg-teal-100 shrink-0 relative">
                   <Image
-                    src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=120&auto=format&fit=crop"
+                    src="/images/doctor/dr-abdijaliil.jpg"
                     alt={siteConfig.doctor.name}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="space-y-0.5">

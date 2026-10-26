@@ -35,7 +35,7 @@ export default function AboutPage() {
             <div className="sticky top-28 bg-white rounded-3xl p-4 border border-slate-100 shadow-xl space-y-6">
               <div className="relative w-full h-[400px] rounded-2xl overflow-hidden bg-slate-100">
                 <Image
-                  src="/images/doctor/design-reference.jpg"
+                  src="/images/doctor/dr-abdijaliil.jpg"
                   alt={siteConfig.doctor.name}
                   fill
                   className="object-cover object-top"

@@ -229,7 +229,7 @@ export function BookingWizard() {
             <input
               type="tel"
               required
-              placeholder="e.g. +252 61 5000000"
+              placeholder="e.g. +252 61 9515497"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"

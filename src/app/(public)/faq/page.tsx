@@ -8,7 +8,7 @@ import { siteConfig } from "@/config/site";
 const FAQS = [
   {
     q: "How do I book an appointment with Dr. Abdijalii?",
-    a: "You can book an appointment using our online booking form on this website, or reach out directly to our clinic coordination desk via WhatsApp (+252 61 5000000). Our team confirms your preferred date and time quickly.",
+    a: "You can book an appointment using our online booking form on this website, or reach out directly to our clinic coordination desk via WhatsApp (+252 61 9515497). Our team confirms your preferred date and time quickly.",
     cat: "Booking",
   },
   {

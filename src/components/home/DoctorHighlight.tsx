@@ -12,7 +12,7 @@ export function DoctorHighlight() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-64 h-72 sm:w-80 sm:h-96 rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-slate-200">
               <Image
-                src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop"
+                src="/images/doctor/dr-abdijaliil.jpg"
                 alt={siteConfig.doctor.name}
                 fill
                 className="object-cover object-top"

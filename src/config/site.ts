@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Dr. Abdijalii Abdiwahab Adan | Orthopedic & Trauma Surgeon",
   description: "Specialized Orthopedic Surgery, Bone Fracture Management, Joint Care, and Sports Injury Treatment in Mogadishu, Somalia.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://drabdijalii.so",
-  ogImage: "/images/doctor/design-reference.jpg",
+  ogImage: "/images/doctor/dr-abdijaliil.jpg",
   doctor: {
     name: "Dr. Abdijalii Abdiwahab Adan",
     credentials: "MD, Orthopedic Surgery",
@@ -17,8 +17,8 @@ export const siteConfig = {
     ],
     experienceYears: 4,
     location: "Mogadishu, Somalia",
-    phone: "+252 61 5000000",
-    whatsapp: "252615000000",
+    phone: "+252 61 9515497",
+    whatsapp: "252619515497",
     email: "info@drabdijalii.so",
     hours: "Saturday - Thursday: 8:00 AM - 4:00 PM",
     rating: "4.8/5",
@@ -35,7 +35,7 @@ export const siteConfig = {
     { name: "Contact", href: "/contact" },
   ],
   links: {
-    whatsapp: "https://wa.me/252615000000",
+    whatsapp: "https://wa.me/252619515497",
   },
 };
 
