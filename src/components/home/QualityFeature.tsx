@@ -25,7 +25,7 @@ export function QualityFeature() {
                 href="/about"
                 className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-bold px-7 py-3 rounded-full text-sm shadow-md shadow-teal-600/20 transition-all"
               >
-                Learn More About Dr. Abdijalii
+                Learn More About Dr. Abdijaliil
               </Link>
             </div>
           </div>

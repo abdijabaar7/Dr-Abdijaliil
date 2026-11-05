@@ -23,9 +23,8 @@ export function HeroSection() {
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-slate-500 max-w-xl leading-relaxed">
-              Connect with <span className="font-semibold text-slate-800">{siteConfig.doctor.name}</span>,
-              specialized Orthopedic &amp; Trauma Surgeon in Mogadishu. Expert medical advice, bone fracture care,
-              and joint restoration — fast, secure, and hassle-free.
+              Meet <span className="font-semibold text-slate-800">{siteConfig.doctor.name}</span>,
+              a Medical Doctor with a strong focus on Orthopaedics and Trauma Care in Mogadishu, Somalia. Dedicated to fracture management, musculoskeletal care, and hip and knee conditions, I am committed to continuous learning, compassionate patient care, and helping people regain mobility and improve their quality of life..
             </p>
 
             {/* Action Buttons (Solid Teal & Ghost White Pill Buttons) */}
@@ -54,7 +53,7 @@ export function HeroSection() {
                 </div>
                 <div>
                   <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">1,000+</div>
-                  <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Patients Treated</div>
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Patients Assisted</div>
                 </div>
               </div>
 
@@ -63,8 +62,8 @@ export function HeroSection() {
                   <Heart className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">4+ Yrs</div>
-                  <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Orthopedic Exp.</div>
+                  <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">2+ Years</div>
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Orthopaedic Experience.</div>
                 </div>
               </div>
 
@@ -73,7 +72,7 @@ export function HeroSection() {
                   <Star className="w-5 h-5 fill-teal-600" />
                 </div>
                 <div>
-                  <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">4.8 / 5</div>
+                  <div className="text-lg sm:text-xl font-extrabold text-slate-900 leading-none">4.5 / 5</div>
                   <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">Patient Rating</div>
                 </div>
               </div>
@@ -86,8 +85,8 @@ export function HeroSection() {
             <div className="relative w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] rounded-full bg-gradient-to-tr from-[#c8f0f2] via-[#ddf7f8] to-[#bbf0f3] flex items-center justify-center shadow-inner">
               {/* Cursive script text top right as in reference */}
               <div className="absolute top-4 right-2 text-teal-800/80 font-serif italic text-xs sm:text-sm tracking-wide select-none">
-                Better Care, <br />
-                Brighter Future
+                 <br />
+              
               </div>
 
               {/* Doctor portrait */}
@@ -120,7 +119,7 @@ export function HeroSection() {
                   </div>
                   <div className="flex items-center gap-1 text-[10px] text-emerald-600 font-bold pt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Available in Mogadishu
+                    Mogadishu, Somalia
                   </div>
                 </div>
               </div>

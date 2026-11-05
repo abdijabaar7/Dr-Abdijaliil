@@ -1,13 +1,13 @@
 export const siteConfig = {
   name: "Dr. Abdijalii Abdiwahab Adan",
-  title: "Dr. Abdijalii Abdiwahab Adan | Orthopedic & Trauma Surgeon",
+  title: "Dr. Abdijaliil Abdiwahab Adan | Orthopedic & Trauma Surgeon",
   description: "Specialized Orthopedic Surgery, Bone Fracture Management, Joint Care, and Sports Injury Treatment in Mogadishu, Somalia.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://drabdijalii.so",
   ogImage: "/images/doctor/dr-abdijaliil.jpg",
   doctor: {
-    name: "Dr. Abdijalii Abdiwahab Adan",
+    name: "Dr. Abdijaliil Abdiwahab Adan",
     credentials: "MD, Orthopedic Surgery",
-    specialty: "Orthopedic & Trauma Surgery",
+    specialty: "Medical Doctor | Aspiring Orthopaedic Surgeon",
     subSpecialties: [
       "Fracture Management & Bone Trauma",
       "Knee & Joint Preservation",

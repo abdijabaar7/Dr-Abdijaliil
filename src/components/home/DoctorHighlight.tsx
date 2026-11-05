@@ -39,7 +39,7 @@ export function DoctorHighlight() {
             </div>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Dr. Abdijalii is a dedicated Orthopedic and Trauma Surgeon with over 4 years of focused surgical
+              Dr. Abdijaliil is a dedicated Orthopedic and Trauma Surgeon with over 4 years of focused surgical
               experience. He provides patient-centered bone fracture fixation, joint arthritis management, sports
               trauma rehabilitation, and pediatric orthopedic care in Mogadishu.
             </p>
@@ -47,7 +47,7 @@ export function DoctorHighlight() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-slate-700 pt-1">
               <div className="flex items-center gap-2.5">
                 <Award className="w-4 h-4 text-teal-600 shrink-0" />
-                <span><strong>4+ Years</strong> Specialized Orthopedic Practice</span>
+                <span><strong>2+ Years</strong> Specialized Orthopedic Practice</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <MapPin className="w-4 h-4 text-teal-600 shrink-0" />

@@ -29,10 +29,10 @@ export function WhyChooseUs() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Why Choose Dr. Abdijalii?
+           Why Connect with Dr. Abdijalil?
           </h2>
           <p className="text-slate-400 text-xs sm:text-sm mt-2">
-            We make orthopedic care simple, accessible and reliable for everyone.
+             Patient-centred care, clear medical information, and a commitment to helping people understand bone, joint, and musculoskeletal conditions.
           </p>
         </div>
 

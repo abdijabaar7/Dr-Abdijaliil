@@ -12,7 +12,7 @@ export function ConsultationCtaBanner() {
           <div className="md:col-span-5 relative h-48 sm:h-56 rounded-2xl overflow-hidden shadow-inner">
             <Image
               src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop"
-              alt="Consultation With Dr. Abdijalii"
+              alt="Consultation With Dr. Abdijaliil"
               fill
               className="object-cover"
             />
