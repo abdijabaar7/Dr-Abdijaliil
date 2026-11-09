@@ -6,6 +6,42 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { createWhatsAppBookingLink } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
+const TIME_SLOTS = ["08:30", "09:30", "10:30", "11:30", "13:00", "14:00", "15:00"];
+
+function clinicDateTime() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Africa/Mogadishu",
+    year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return { date: `${values.year}-${values.month}-${values.day}`, time: `${values.hour}:${values.minute}` };
+}
+
+export async function GET(req: NextRequest) {
+  const date = req.nextUrl.searchParams.get("date");
+  if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return NextResponse.json({ error: "A valid appointment date is required." }, { status: 400 });
+  }
+
+  try {
+    const supabase = createAdminClient();
+    const { data, error } = await supabase
+      .from("appointments")
+      .select("appointment_time")
+      .eq("appointment_date", date)
+      .in("status", ["pending", "confirmed"]);
+
+    if (error) throw error;
+    const unavailableSlots = new Set((data || []).map((item) => item.appointment_time.slice(0, 5)));
+    const now = clinicDateTime();
+    if (date === now.date) TIME_SLOTS.filter((slot) => slot <= now.time).forEach((slot) => unavailableSlots.add(slot));
+    return NextResponse.json({ unavailableSlots: [...unavailableSlots] }, { headers: { "Cache-Control": "no-store" } });
+  } catch (error) {
+    console.error("Could not load appointment availability:", error);
+    return NextResponse.json({ error: "Appointment availability is temporarily unavailable." }, { status: 503 });
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     // 1. Rate Limiting Check
@@ -41,11 +77,28 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, message: "Appointment request received." });
     }
 
-    // 4. Save to Database using Admin client for reliable server-side insertion
+    // 4. Insert the request. A partial unique index is the final guard against
+    // two patients claiming the same slot at the same time.
     let appointmentId: string | undefined;
 
     try {
       const supabaseAdmin = createAdminClient();
+      const { data: existing, error: availabilityError } = await supabaseAdmin
+        .from("appointments")
+        .select("id")
+        .eq("appointment_date", appointment_date)
+        .eq("appointment_time", appointment_time)
+        .in("status", ["pending", "confirmed"])
+        .limit(1);
+
+      if (availabilityError) {
+        console.error("Appointment availability check failed:", availabilityError);
+        return NextResponse.json({ error: "We could not verify this time. Please try again shortly." }, { status: 503 });
+      }
+      if (existing?.length) {
+        return NextResponse.json({ error: "Waqtigan hore ayaa loo qabsaday. Fadlan dooro waqti kale." }, { status: 409 });
+      }
+
       const { data, error } = await supabaseAdmin
         .from("appointments")
         .insert({
@@ -61,16 +114,22 @@ export async function POST(req: NextRequest) {
         .select("id")
         .single();
 
+      if (error?.code === "23505") {
+        return NextResponse.json(
+          { error: "Qof kale ayaa waqtigan hadda qabsaday. Fadlan dooro waqti kale." },
+          { status: 409 }
+        );
+      }
       if (error) {
         console.error("Admin insert error on appointments:", error);
-      } else if (data) {
-        appointmentId = data.id;
+        return NextResponse.json({ error: "Ballanta lama kaydin. Fadlan mar kale isku day." }, { status: 503 });
       }
+      if (data) appointmentId = data.id;
     } catch (adminErr) {
       // Fallback to server client if service key missing
       console.warn("Falling back to server client:", adminErr);
       const supabase = await createServerSupabaseClient();
-      await supabase.from("appointments").insert({
+      const { data, error } = await supabase.from("appointments").insert({
         patient_name,
         phone,
         email: email || null,
@@ -80,6 +139,11 @@ export async function POST(req: NextRequest) {
         reason: reason || null,
         status: "pending",
       });
+      if (error?.code === "23505") {
+        return NextResponse.json({ error: "Qof kale ayaa waqtigan hadda qabsaday. Fadlan dooro waqti kale." }, { status: 409 });
+      }
+      if (error) throw error;
+      appointmentId = data?.id;
     }
 
     const whatsappLink = createWhatsAppBookingLink(
@@ -94,7 +158,7 @@ export async function POST(req: NextRequest) {
       {
         success: true,
         appointmentId,
-        message: "Your appointment request has been recorded. Our staff will confirm your time slot shortly.",
+        message: "Your request was received. The clinic team will contact you to confirm your appointment.",
         whatsappLink,
       },
       { status: 201 }

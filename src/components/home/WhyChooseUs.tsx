@@ -1,26 +1,26 @@
-import { ShieldCheck, MessageSquare, CalendarCheck, Lock } from "lucide-react";
+import { ShieldCheck, MessageSquare, CalendarCheck, Lock, GraduationCap } from "lucide-react";
 
 export function WhyChooseUs() {
   const points = [
     {
-      title: "Verified Specialist",
-      desc: "Licensed Orthopedic and Trauma surgeon with verified clinical credentials.",
+      title: "Medical Doctor (MBBS).",
+      desc: "Qualified medical doctor committed to professional standards, continuous learning, and compassionate patient care.",
       icon: ShieldCheck,
     },
     {
-      title: "Online Consultation",
-      desc: "Get expert advice and diagnostic review from the comfort of home.",
+      title: " Orthopaedic Care & Guidance",
+      desc: "Focused on bone fractures, joint conditions, trauma care, and musculoskeletal health.",
       icon: MessageSquare,
     },
     {
-      title: "Easy Booking",
-      desc: "Book appointments in just a few clicks with fast WhatsApp confirmation.",
+      title: "Easy Appointment Booking",
+      desc: "Request an appointment conveniently through WhatsApp, with confirmation based on availability.",
       icon: CalendarCheck,
     },
     {
-      title: "Secure & Private",
-      desc: "Your medical inquiries and health data are strictly confidential and protected.",
-      icon: Lock,
+      title: "Continuous Learning",
+      desc: "Committed to advancing orthopaedic knowledge, developing clinical skills, and providing compassionate, evidence-based patient care.",
+      icon: GraduationCap,
     },
   ];
 

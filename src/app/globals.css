@@ -10,9 +10,17 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: Inter, "Aptos", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+input, select, textarea, button {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(13, 148, 136, 0.2);
 }
 
 /* Custom smooth transitions */

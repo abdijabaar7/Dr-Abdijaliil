@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { siteConfig } from "@/config/site";
 import { Calendar, Clock, User, Phone, Mail, FileText, CheckCircle2, AlertCircle, Loader2, MessageSquare } from "lucide-react";
 
 const TIME_SLOTS = [
@@ -28,12 +27,18 @@ const SPECIALTY_OPTIONS = [
 export function BookingWizard() {
   const searchParams = useSearchParams();
   const preselectedService = searchParams.get("service") || "";
+  const todayInClinic = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Africa/Mogadishu",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 
   const [formData, setFormData] = useState({
     patient_name: "",
     phone: "",
     email: "",
-    appointment_date: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+    appointment_date: todayInClinic,
     appointment_time: "09:30",
     reason: preselectedService ? `Specialty: ${preselectedService}` : "",
     consent: true,
@@ -41,12 +46,37 @@ export function BookingWizard() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [unavailableSlots, setUnavailableSlots] = useState<string[]>([]);
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
+  const [availabilityError, setAvailabilityError] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
   const [successData, setSuccessData] = useState<{
     message: string;
     whatsappLink: string;
     appointmentId?: string;
   } | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    setAvailabilityLoading(true);
+    setAvailabilityError(false);
+    fetch(`/api/appointments?date=${encodeURIComponent(formData.appointment_date)}`)
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Could not check availability.");
+        if (!active) return;
+        const unavailable = data.unavailableSlots as string[];
+        setUnavailableSlots(unavailable);
+        if (unavailable.includes(formData.appointment_time)) {
+          const nextAvailable = TIME_SLOTS.find((slot) => !unavailable.includes(slot));
+          if (nextAvailable) setFormData((current) => ({ ...current, appointment_time: nextAvailable }));
+        }
+      })
+      .catch(() => { if (active) setAvailabilityError(true); })
+      .finally(() => { if (active) setAvailabilityLoading(false); });
+    return () => { active = false; };
+  }, [formData.appointment_date]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +117,18 @@ export function BookingWizard() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to submit appointment request.");
+        const message = data.error || "Failed to submit appointment request.";
+        if (res.status === 409) {
+          setErrorMsg(message);
+          fetch(`/api/appointments?date=${encodeURIComponent(formData.appointment_date)}`)
+            .then((refreshed) => refreshed.json())
+            .then((availability) => {
+              if (Array.isArray(availability.unavailableSlots)) setUnavailableSlots(availability.unavailableSlots);
+            })
+            .catch(() => undefined);
+          requestAnimationFrame(() => errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
+        }
+        throw new Error(message);
       }
 
       setSuccessData({
@@ -98,6 +139,7 @@ export function BookingWizard() {
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "An unexpected error occurred.";
       setErrorMsg(message);
+      requestAnimationFrame(() => errorRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }));
     } finally {
       setIsSubmitting(false);
     }
@@ -151,7 +193,7 @@ export function BookingWizard() {
                 patient_name: "",
                 phone: "",
                 email: "",
-                appointment_date: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+                appointment_date: todayInClinic,
                 appointment_time: "09:30",
                 reason: "",
                 consent: true,
@@ -170,7 +212,7 @@ export function BookingWizard() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-100 shadow-xl max-w-2xl mx-auto space-y-6"
+      className="bg-white rounded-[2rem] p-6 sm:p-10 border border-slate-200/70 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.24)] max-w-2xl mx-auto space-y-6"
     >
       <div className="border-b border-slate-100 pb-5">
         <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
@@ -182,7 +224,7 @@ export function BookingWizard() {
       </div>
 
       {errorMsg && (
-        <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3">
+        <div ref={errorRef} role="alert" aria-live="assertive" className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-3">
           <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
           <span>{errorMsg}</span>
         </div>
@@ -286,7 +328,7 @@ export function BookingWizard() {
             <input
               type="date"
               required
-              min={new Date().toISOString().split("T")[0]}
+              min={todayInClinic}
               value={formData.appointment_date}
               onChange={(e) => setFormData({ ...formData, appointment_date: e.target.value })}
               className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
@@ -307,12 +349,15 @@ export function BookingWizard() {
               className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
             >
               {TIME_SLOTS.map((t) => (
-                <option key={t} value={t}>
-                  {t} (Clinic Hours)
+                <option key={t} value={t} disabled={unavailableSlots.includes(t)}>
+                  {t}{unavailableSlots.includes(t) ? " · Booked" : " · Available"}
                 </option>
               ))}
             </select>
           </div>
+          <p className={`mt-2 text-xs ${availabilityError ? "text-amber-700" : "text-slate-500"}`} aria-live="polite">
+            {availabilityLoading ? "Waqtiyada bannaan ayaa la hubinayaa…" : availabilityError ? "Waqtiyada lama hubin karo hadda. Fadlan bogga dib u cusboonaysii; codsiga ballanta lama dirin." : "Waqtiyada la qabsaday lama dooran karo."}
+          </p>
         </div>
       </div>
 
@@ -351,7 +396,7 @@ export function BookingWizard() {
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={isSubmitting || !formData.consent}
+        disabled={isSubmitting || availabilityLoading || availabilityError || !formData.consent}
         className="w-full bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-teal-600/20 text-sm sm:text-base flex items-center justify-center gap-2 transition-all"
       >
         {isSubmitting ? (

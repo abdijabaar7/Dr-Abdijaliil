@@ -10,12 +10,12 @@ export function QuickSpecialtyBar() {
   const router = useRouter();
 
   const specialtyIcons = [
-    { label: "Bone Fractures", icon: Bone, href: "/conditions#fractures" },
-    { label: "Knee & Joint", icon: Activity, href: "/conditions#knee-joint" },
-    { label: "Shoulder & Hip", icon: ShieldCheck, href: "/conditions#shoulder-hip" },
+    { label: " Fracture Care", icon: Bone, href: "/conditions#fractures" },
+    { label: "Knee & Joint Care", icon: Activity, href: "/conditions#knee-joint" },
+    { label: "Hip & Shoulder Care", icon: ShieldCheck, href: "/conditions#shoulder-hip" },
     { label: "Sports Injuries", icon: Zap, href: "/conditions#sports" },
-    { label: "Pediatric Ortho", icon: UserCheck, href: "/conditions#pediatric" },
-    { label: "Spine Care", icon: Heart, href: "/conditions#assessment" },
+    { label: "Pediatric Orthopaedics", icon: UserCheck, href: "/conditions#pediatric" },
+    { label: "Trauma & Emergency Care", icon: Heart, href: "/conditions#assessment" },
   ];
 
   const handleSearch = (e: React.FormEvent) => {
@@ -34,11 +34,12 @@ export function QuickSpecialtyBar() {
           {/* Left Title & Description */}
           <div className="lg:col-span-7 space-y-2">
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Find Orthopedic Care <br className="hidden sm:inline" />
-              for Your Condition
+               Find the Right Orthopaedic <br className="hidden sm:inline" />
+              Care for You
             </h2>
             <p className="text-slate-300 text-xs sm:text-sm max-w-lg">
-              Search by bone injury, joint condition, or select from Dr. Abdijalii&apos;s orthopedic specialties in Mogadishu.
+              
+               Explore information about bone fractures, joint conditions, sports injuries, and musculoskeletal health. Discover orthopaedic care and guidance from Dr. Abdijalil in Mogadishu, Somalia.
             </p>
 
             {/* Search Input Box */}

@@ -17,7 +17,7 @@ export function ClinicDeskBanner() {
               in Mogadishu
             </h2>
             <p className="text-slate-200 text-xs sm:text-sm max-w-xl leading-relaxed">
-              Connect directly with Dr. Abdijalii&apos;s clinic desk for appointment scheduling,
+              Connect directly with Dr. Abdijaliil&apos;s clinic desk for appointment scheduling,
               X-ray reviews, and acute fracture assistance.
             </p>
 
