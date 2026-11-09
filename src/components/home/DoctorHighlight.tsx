@@ -39,7 +39,7 @@ export function DoctorHighlight() {
             </div>
 
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Dr. Abdijaliil is a dedicated Orthopedic and Trauma Surgeon with over 4 years of focused surgical
+              Dr. Abdijaliil is a dedicated Orthopedic and Trauma Surgeon with over 2 years of focused surgical
               experience. He provides patient-centered bone fracture fixation, joint arthritis management, sports
               trauma rehabilitation, and pediatric orthopedic care in Mogadishu.
             </p>
